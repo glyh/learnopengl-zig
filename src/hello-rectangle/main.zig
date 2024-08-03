@@ -33,7 +33,7 @@ pub fn main() !void {
     defer glfw.terminate();
 
     // some how type inference for window won't work with zls
-    const window: glfw.Window = glfw.Window.create(800, 600, "Hello, OpenGL + GLFW!", null, null, .{
+    const window: glfw.Window = glfw.Window.create(window_width, window_height, "Hello, OpenGL + GLFW!", null, null, .{
         .opengl_profile = .opengl_core_profile,
         .context_version_major = 3,
         .context_version_minor = 3,
