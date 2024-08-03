@@ -11,6 +11,9 @@ fn glGetProcAddress(_: glfw.GLProc, proc: [:0]const u8) ?gl.binding.FunctionPoin
     return glfw.getProcAddress(proc);
 }
 
+const window_width = 800;
+const window_height = 600;
+
 pub fn main() !void {
     if (!glfw.init(.{})) {
         log.err("Failed to initialize GLFW: {?s}", .{glfw.getErrorString()});
@@ -33,6 +36,8 @@ pub fn main() !void {
 
     const proc: glfw.GLProc = undefined;
     try gl.loadExtensions(proc, glGetProcAddress);
+
+    gl.viewport(0, 0, window_width, window_height);
 
     while (!window.shouldClose()) {
         if (window.getKey(glfw.Key.escape) == glfw.Action.press) {

@@ -18,9 +18,9 @@ pub fn build(b: *std.Build) !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
     inline for ([_][]const u8{
-        "hello-window",
-        "hello-triangle",
-        "hello-rectangle",
+        "window",
+        "triangle",
+        "rectangle",
     }) |demo_name| {
         const root_source_file = try std.fmt.allocPrint(allocator, "src/{s}/main.zig", .{demo_name});
         const exe = b.addExecutable(.{
