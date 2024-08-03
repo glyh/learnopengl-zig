@@ -22,6 +22,7 @@ pub fn build(b: *std.Build) !void {
         "triangle",
         "rectangle",
         "fragment-interpolate-triangle",
+        "texture-uniform-triangle",
     }) |demo_name| {
         const root_source_file = try std.fmt.allocPrint(allocator, "src/{s}/main.zig", .{demo_name});
         const exe = b.addExecutable(.{
@@ -42,6 +43,12 @@ pub fn build(b: *std.Build) !void {
             .optimize = optimize,
         });
         exe.root_module.addImport("glfw", mach_glfw.module("mach-glfw"));
+
+        const zigimg = b.dependency("zigimg", .{
+            .target = target,
+            .optimize = optimize,
+        });
+        exe.root_module.addImport("zigimg", zigimg.module("zigimg"));
 
         // This declares intent for the executable to be installed into the
         // standard location when the user invokes the "install" step (the default
