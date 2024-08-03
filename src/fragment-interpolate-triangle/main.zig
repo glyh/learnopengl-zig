@@ -85,9 +85,10 @@ pub fn main() !void {
     }
     // zig fmt: off
     const vertices = [_]f32{
-        -0.5, -0.5, 0.0, // left
-        0.5,  -0.5, 0.0, // right
-        0.0,  0.5,  0.0,  // top
+        // positions      //colors
+        0.5,  -0.5, 0.0,  1.0, 0.0, 0.0, // bottom right
+        -0.5, -0.5, 0.0,  0.0, 1.0, 0.0, // bottom left
+        0.0,  0.5,  0.0,  0.0, 0.0, 1.0,  // top
     };
     // zig fmt: on
 
@@ -103,8 +104,10 @@ pub fn main() !void {
         defer gl.Buffer.invalid.bind(gl.BufferTarget.array_buffer);
 
         VBO.data(f32, &vertices, gl.BufferUsage.static_draw);
-        gl.vertexAttribPointer(0, 3, gl.Type.float, false, 3 * @sizeOf(f32), 0);
+        gl.vertexAttribPointer(0, 3, gl.Type.float, false, 6 * @sizeOf(f32), 0);
         gl.enableVertexAttribArray(0);
+        gl.vertexAttribPointer(1, 3, gl.Type.float, false, 6 * @sizeOf(f32), 3 * @sizeOf(f32));
+        gl.enableVertexAttribArray(1);
     }
 
     VAO.bind(); // bind&unbind repeatedly in a loop.
@@ -117,6 +120,12 @@ pub fn main() !void {
         gl.clear(.{ .color = true });
 
         gl.useProgram(shader_program);
+
+        const now: f32 = @floatCast(glfw.getTime());
+        const green_value = std.math.sin(now) / 2.0 + 0.5;
+        const our_color = gl.getUniformLocation(shader_program, "ourColor");
+        gl.uniform4f(our_color, 0.0, green_value, 0.0, 0.0);
+
         gl.drawArrays(gl.PrimitiveType.triangles, 0, 3);
 
         window.swapBuffers();

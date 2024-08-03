@@ -21,6 +21,7 @@ pub fn build(b: *std.Build) !void {
         "window",
         "triangle",
         "rectangle",
+        "fragment-interpolate-triangle",
     }) |demo_name| {
         const root_source_file = try std.fmt.allocPrint(allocator, "src/{s}/main.zig", .{demo_name});
         const exe = b.addExecutable(.{
