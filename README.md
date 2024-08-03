@@ -10,7 +10,7 @@ Here are some libraries used compared to the tutorial:
 | GLFW | [mach-glfw](https://github.com/slimsag/mach-glfw) |
 | GLAD | builtin to zgl |
 | stb_image.h | [zigimg](https://github.com/zigimg/zigimg) |
-| GLM | [zalgebra](https://github.com/glyh/zalgebra/tree/main) |
+| GLM | [zalgebra](https://github.com/glyh/zalgebra) |
 
 ### Requirement
 
