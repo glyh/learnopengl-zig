@@ -25,6 +25,7 @@ pub fn build(b: *std.Build) !void {
         "texture-uniform-triangle",
         "texture-units-mix",
         "linear-transformation",
+        "3d-coordinates",
     }) |demo_name| {
         const root_source_file = try std.fmt.allocPrint(allocator, "src/{s}/main.zig", .{demo_name});
         const exe = b.addExecutable(.{
