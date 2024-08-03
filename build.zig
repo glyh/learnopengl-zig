@@ -24,6 +24,7 @@ pub fn build(b: *std.Build) !void {
         "fragment-interpolate-triangle",
         "texture-uniform-triangle",
         "texture-units-mix",
+        "linear-transformation",
     }) |demo_name| {
         const root_source_file = try std.fmt.allocPrint(allocator, "src/{s}/main.zig", .{demo_name});
         const exe = b.addExecutable(.{
@@ -50,6 +51,9 @@ pub fn build(b: *std.Build) !void {
             .optimize = optimize,
         });
         exe.root_module.addImport("zigimg", zigimg.module("zigimg"));
+
+        const zalgebra = b.dependency("zalgebra", .{});
+        exe.root_module.addImport("zalgebra", zalgebra.module("zalgebra"));
 
         // This declares intent for the executable to be installed into the
         // standard location when the user invokes the "install" step (the default
