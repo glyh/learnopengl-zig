@@ -26,6 +26,7 @@ pub fn build(b: *std.Build) !void {
         "texture-units-mix",
         "linear-transformation",
         "3d-coordinates",
+        "text-rendering",
     }) |demo_name| {
         const root_source_file = try std.fmt.allocPrint(allocator, "src/{s}/main.zig", .{demo_name});
         const exe = b.addExecutable(.{
@@ -53,8 +54,17 @@ pub fn build(b: *std.Build) !void {
         });
         exe.root_module.addImport("zigimg", zigimg.module("zigimg"));
 
-        const zalgebra = b.dependency("zalgebra", .{});
+        const zalgebra = b.dependency("zalgebra", .{
+            .target = target,
+            .optimize = optimize,
+        });
         exe.root_module.addImport("zalgebra", zalgebra.module("zalgebra"));
+
+        const mach_freetype = b.dependency("mach_freetype", .{
+            .target = target,
+            .optimize = optimize,
+        });
+        exe.root_module.addImport("mach_freetype", mach_freetype.module("mach-freetype"));
 
         // This declares intent for the executable to be installed into the
         // standard location when the user invokes the "install" step (the default

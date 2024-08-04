@@ -31,6 +31,10 @@
             .url = "https://github.com/glyh/zalgebra/archive/9b76b8d5351f92426010994f0ba2f85f12197e39.tar.gz",
             .hash = "12200e1b17e15217623e36563e459164fff4debb8210ea9d027d8548aca6d30f0811",
         },
+        .mach_freetype = .{
+            .url = "https://github.com/hexops/mach-freetype/archive/86fc8024d4ddd53df75dfa4f3ad4eebe0b1b4284.tar.gz",
+            .hash = "12206251ed342f400b80abf3c338521f5d8c83eb596899abf77a2afe0cfd46e61ff0",
+        },
     },
     .paths = .{
         "build.zig",

@@ -9,7 +9,7 @@ const gl = @import("gl");
 const zigimg = @import("zigimg");
 const lm = @import("zalgebra");
 
-const log = std.log.scoped(.triangle);
+const log = std.log.scoped(.@"linear-transformation");
 
 fn glGetProcAddress(_: glfw.GLProc, proc: [:0]const u8) ?gl.binding.FunctionPointer {
     return glfw.getProcAddress(proc);

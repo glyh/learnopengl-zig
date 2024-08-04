@@ -5,7 +5,7 @@ const std = @import("std");
 const glfw = @import("glfw");
 const gl = @import("gl");
 
-const log = std.log.scoped(.triangle);
+const log = std.log.scoped(.window);
 
 fn glGetProcAddress(_: glfw.GLProc, proc: [:0]const u8) ?gl.binding.FunctionPointer {
     return glfw.getProcAddress(proc);

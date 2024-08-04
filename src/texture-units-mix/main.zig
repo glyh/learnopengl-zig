@@ -8,7 +8,7 @@ const glfw = @import("glfw");
 const gl = @import("gl");
 const zigimg = @import("zigimg");
 
-const log = std.log.scoped(.triangle);
+const log = std.log.scoped(.@"texture-units-mix");
 
 fn glGetProcAddress(_: glfw.GLProc, proc: [:0]const u8) ?gl.binding.FunctionPointer {
     return glfw.getProcAddress(proc);
