@@ -27,6 +27,7 @@ pub fn build(b: *std.Build) !void {
         "linear-transformation",
         "3d-coordinates",
         "text-rendering",
+        "camera",
     }) |demo_name| {
         const root_source_file = try std.fmt.allocPrint(allocator, "src/{s}/main.zig", .{demo_name});
         const exe = b.addExecutable(.{
