@@ -42,10 +42,20 @@ const Character = struct {
     }
 };
 
-fn renderText(s: gl.Program, vbo: gl.Buffer, text: []const u8, x_: gl.Float, y: gl.Float, scale: gl.Float, color: za.Vec3) void {
+fn renderText(
+    s: gl.Program,
+    vbo: gl.Buffer,
+    text: []const u8,
+    x_: gl.Float,
+    y: gl.Float,
+    scale: gl.Float,
+    color: za.Vec3,
+    showBoundingBox: bool,
+) void {
     var x = x_;
     s.use();
     gl.uniform3f(gl.getUniformLocation(s, "textColor"), color.x(), color.y(), color.z());
+    gl.uniform1i(gl.getUniformLocation(s, "showBoundingBox"), if (showBoundingBox) 1 else 0);
     for (text) |char| {
         const char_u32 = @as(u32, @intCast(char));
         const ch = char_map.get(char_u32).?;
@@ -147,7 +157,7 @@ pub fn main() !void {
     const lib = try freetype.Library.init();
     defer lib.deinit();
 
-    const font_file = @embedFile("./FiraCode-Regular.ttf");
+    const font_file = @embedFile("./Ubuntu-R.ttf");
     const face = try lib.createFaceMemory(font_file, 0);
     try face.setPixelSizes(0, 48);
 
@@ -218,9 +228,11 @@ pub fn main() !void {
         gl.clearColor(0.2, 0.3, 0.3, 1.0);
         gl.clear(.{ .color = true });
 
-        renderText(shader_program, VBO, "This is sample text", 25.0, 25.0, 1.0, za.Vec3.new(0.5, 0.8, 0.2));
+        renderText(shader_program, VBO, "This is sample text", 25.0, 100.0, 1.0, za.Vec3.new(0.5, 0.8, 0.2), false);
+        renderText(shader_program, VBO, "This is sample text", 25.0, 30.0, 1.0, za.Vec3.new(0.5, 0.8, 0.2), true);
 
-        renderText(shader_program, VBO, "(C) LearnOpenGL.com", 540.0, 570.0, 0.5, za.Vec3.new(0.3, 0.7, 0.9));
+        renderText(shader_program, VBO, "(C) LearnOpenGL.com", 500.0, 570.0, 0.5, za.Vec3.new(0.3, 0.7, 0.9), false);
+        renderText(shader_program, VBO, "(C) LearnOpenGL.com", 500.0, 540.0, 0.5, za.Vec3.new(0.3, 0.7, 0.9), true);
 
         window.swapBuffers();
         glfw.pollEvents();

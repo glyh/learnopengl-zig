@@ -5,8 +5,13 @@ out vec4 FragColor;
 
 uniform sampler2D text;
 uniform vec3 textColor;
+uniform int showBoundingBox;
 
 void main() {
     vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, TexCoords).r);
-    FragColor = vec4(textColor, 1.0) * sampled;
+    if (showBoundingBox != 0) {
+        FragColor = vec4(textColor, 1.0);
+    } else {
+        FragColor = vec4(textColor, 1.0) * sampled;
+    }
 }
