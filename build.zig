@@ -28,6 +28,7 @@ pub fn build(b: *std.Build) !void {
         "3d-coordinates",
         "text-rendering",
         "camera",
+        "text-rendering-modern",
     }) |demo_name| {
         const root_source_file = try std.fmt.allocPrint(allocator, "src/{s}/main.zig", .{demo_name});
         const exe = b.addExecutable(.{
@@ -65,7 +66,8 @@ pub fn build(b: *std.Build) !void {
             .target = target,
             .optimize = optimize,
         });
-        exe.root_module.addImport("mach_freetype", mach_freetype.module("mach-freetype"));
+        exe.root_module.addImport("freetype", mach_freetype.module("mach-freetype"));
+        exe.root_module.addImport("harfbuzz", mach_freetype.module("mach-harfbuzz"));
 
         // This declares intent for the executable to be installed into the
         // standard location when the user invokes the "install" step (the default

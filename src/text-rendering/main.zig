@@ -6,7 +6,7 @@
 const std = @import("std");
 const glfw = @import("glfw");
 const gl = @import("gl");
-const freetype = @import("mach_freetype");
+const freetype = @import("freetype");
 const za = @import("zalgebra");
 
 const log = std.log.scoped(.@"text-rendering");
