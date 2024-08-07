@@ -15,7 +15,7 @@ fn glGetProcAddress(_: glfw.GLProc, proc: [:0]const u8) ?gl.binding.FunctionPoin
 const window_width = 800;
 const window_height = 600;
 
-const font_pt = 30.0;
+const font_pt = 20.0;
 const frac_pt = 64.0;
 const pt_per_inch = 72.0;
 
@@ -45,7 +45,9 @@ fn renderText(
 
     text_buffer.addUTF8(text, 0, null);
     text_buffer.guessSegmentProps();
-
+    // text_buffer.setDirection(.ltr);
+    // text_buffer.setScript(.han);
+    // text_buffer.setLanguage(harfbuzz.Language.fromString("zh-Hans"));
     hb_font.shape(text_buffer, null);
 
     const glyph_infos = text_buffer.getGlyphInfos();
@@ -195,10 +197,6 @@ pub fn main() !void {
     const face = try lib.createFaceMemory(@embedFile("./fonts/LxgwWenKai/LXGWWenKaiLite-Regular.ttf"), 0);
     defer face.deinit();
 
-    const font_px = std.math.lossyCast(u32, font_pt / pt_per_inch * dpi_x);
-    std.debug.print("font size {}px, {}pt", .{ font_px, font_pt });
-    // font size is font_pt / 72 inch
-    // try face.setPixelSizes(0, std.math.lossyCast(u32, font_px));
     try face.setCharSize(
         std.math.lossyCast(i32, font_pt * frac_pt),
         std.math.lossyCast(i32, font_pt * frac_pt),
@@ -252,8 +250,8 @@ pub fn main() !void {
         gl.clearColor(0.2, 0.3, 0.3, 1.0);
         gl.clear(.{ .color = true });
 
-        try renderText(face, hb_font, shader_program, VBO, "你好，世界！", 25.0, 400.0, za.Vec3.new(0.5, 0.8, 0.2), false, dpi_x, dpi_y);
-        try renderText(face, hb_font, shader_program, VBO, "你好，世界！", 25.0, 300.0, za.Vec3.new(0.5, 0.8, 0.2), true, dpi_x, dpi_y);
+        try renderText(face, hb_font, shader_program, VBO, "你好，世界！—— “可以的”", 25.0, 400.0, za.Vec3.new(0.5, 0.8, 0.2), false, dpi_x, dpi_y);
+        try renderText(face, hb_font, shader_program, VBO, "你好，世界！—— “可以的”", 25.0, 300.0, za.Vec3.new(0.5, 0.8, 0.2), true, dpi_x, dpi_y);
 
         window.swapBuffers();
         glfw.pollEvents();
